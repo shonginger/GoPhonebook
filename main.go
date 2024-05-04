@@ -15,14 +15,16 @@ func main() {
 	fmt.Println("server start")
 
 	db, err := db.NewMySQLStorage(mysql.Config{
-		User:                 config.Envs.DBUser,
-		Passwd:               config.Envs.DBPassword,
-		Addr:                 config.Envs.DBAddress,
-		DBName:               config.Envs.DBName,
-		Net:                  "tcp",
-		AllowNativePasswords: true,
-		ParseTime:            true,
+		User:   config.Envs.DBUser,
+		Passwd: config.Envs.DBPassword,
+		Addr:   config.Envs.DBAddress,
+		DBName: config.Envs.DBName,
+		Net:    "tcp",
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	InitStorage(db)
 
@@ -30,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	server := api.NewAPIServer(":8081", db)
+	server := api.NewAPIServer(":8080", db)
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}

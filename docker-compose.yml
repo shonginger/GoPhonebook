@@ -6,30 +6,30 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 8080:8081
+      - 8080:8080
     environment:
-      - GIN_MODE=$GIN_MODE
-      - PORT=$PORT
-      - DB_HOST="host.docker.internal:127.0.0.1"
+      - APP_PORT=$PORT
+      - DB_HOST=$DB_HOST
       - DB_PORT=$DB_PORT
       - DB_USER=$DB_USER
-      - DB_PASSWORD=$DB_PASS
+      - DB_PASS=$DB_PASS
       - DB_NAME=$DB_NAME
     depends_on:
-     - db
+      - db
 
   db:
     image: mysql:8.0
-    restart: always
     ports:
-      - "3307:3306"
-    extra_hosts:
-      - "host.docker.internal:127.0.0.1"
+      - 3306:3306
     environment:
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASS
       MYSQL_ROOT_PASSWORD: $DB_PASS
+      MYSQL_ROOT_RANDOM_PASSWORD: "secret"
       MYSQL_DATABASE: $DB_NAME
     volumes:
       - db_data:/var/lib/mysql
 
+      
 volumes:
   db_data:
