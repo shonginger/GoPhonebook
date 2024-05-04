@@ -34,15 +34,6 @@ func main() {
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}
-	// http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	// _, err := http.Get("https://golang.org/")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// http.HandleFunc("/hell-world", func(w http.ResponseWriter, r *http.Request) {
-	// 	w.Write([]byte("hello world"))
-	// })
-	// log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
 func InitStorage(db *sql.DB) {

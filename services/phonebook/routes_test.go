@@ -13,17 +13,26 @@ import (
 
 type mockContactStore struct{}
 
+func (m *mockContactStore) GetContactById(id int) (*types.Contact, error) {
+	return nil, nil
+}
+
 func (m *mockContactStore) GetContactByPhoneNumber(phone string) (*types.Contact, error) {
 	return nil, nil
 }
 
-func (m *mockContactStore) DeleteContactByPhoneNumber(phone string) (*types.Contact, error) {
-	return nil, nil
+func (m *mockContactStore) DeleteContactById(id int) error {
+	return nil
 }
+
 func (m *mockContactStore) AddContact(contactData types.ContactDTO) error {
 	return nil
 }
-func (m *mockContactStore) UpdateContact(contactData types.ContactDTO) (*types.Contact, error) {
+func (m *mockContactStore) UpdateContact(id int, updateContactData types.UpdateContactDTO) error {
+	return nil
+}
+
+func (m *mockContactStore) GetContactsPage(pageNum int) ([]types.Contact, error) {
 	return nil, nil
 }
 
@@ -34,9 +43,9 @@ func TestPhonebookServicerHandlers(t *testing.T) {
 	t.Run("Should fail if user request is invalid", func(t *testing.T) {
 		payload := types.ContactDTO{
 			FirstName: "",
-			LastName:  "shady",
+			LastName:  types.NullableString{"shady", true},
 			Phone:     "",
-			Address:   "hollywood",
+			Address:   types.NullableString{"hollywood", true},
 		}
 
 		marshalled, _ := json.Marshal(payload)

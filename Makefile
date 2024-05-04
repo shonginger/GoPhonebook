@@ -3,7 +3,7 @@ all:
 	echo "hi"
 
 build:
-	@go build -o bin/Lehem cmd/main.go
+	@go build -o bin/Lehem main.go
 
 test:
 	@go test -v ./...
@@ -12,7 +12,7 @@ run: build
 	@./bin/Lehem	
 
 migration:
-	@migrations create -ext sql -dir /cmd/migrate/migrations $(filter-out $@, $(MAKECMDGOALS))
+	@migrate create -ext sql -dir cmd/migrate/migrations $(filter-out $@, $(MAKECMDGOALS))
 
 migrate-up:
 	@go run cmd/migrate/main.go up
