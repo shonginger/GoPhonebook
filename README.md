@@ -3,7 +3,13 @@ backend phonebook api project in go
 
 
 # Starting the server
-...
+
+1. Go into the root directory and run the following:
+    a. $ docker-compose build --no-cache. this might take a few minutes
+    b. $ docker compose up -d
+
+This will build and create the docker container for the application and the database
+The server has a short delay on startup to ensure the DB is up and running.
 
 # APIS
 BASE ROUTE
@@ -62,3 +68,27 @@ api/v1/<api_method>
   
 
 
+# NOTES:
+I didn't really have time to invest in unit tests as I was learning Docker and Golang the go, so I left it pretty barren. how ever here are scenrios I would test
+
+FOR APIS:
+ - DELETE
+ 1. delete ID that doesn't exist.
+ 2. delete ID that exists and then deleting it again
+ - ADD
+ 1. add user with all fields
+ 2. add user with no required fields
+ 3. attempt to add user with required fields missing
+ 4. attempt to add user with invalid values such as length constraints
+ 5. adding the same user twice
+ - UPDATE
+ 1. update each field indivually 
+ 2. update attempts that are invalid. (see ADD)
+ - GET
+ 1. Get contact that exists
+ 2. Get contact that does not exist
+ - GetContacts
+ 1. Get existing page
+ 2. Get invalid page (such as -10)
+ 3. Get page that does not exist
+ 4. Adding more than the page size then getting both pages, afterwards delete one user and attempt to get the 2nd page.
