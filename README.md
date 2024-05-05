@@ -13,18 +13,18 @@ The server has a short delay on startup to ensure the DB is up and running.
 
 # APIS
 BASE ROUTE
-api/v1/<api_method>
+http://localhost:8080/api/v1/<api_method>
 
 ### GET METHODS:
     ping - test method server responds with pong:
         - parameters: NONE
-        - example: curl -X GET http://localhost:8081/api/v1/ping
+        - example: curl -X GET http://localhost:8080/api/v1/ping
     search - search contact by id:
       - parameter: ID - the number representing the contact id
-      - example: curl -X GET http://localhost:8081/api/v1/search?id=2
+      - example: curl -X GET http://localhost:8080/api/v1/search?id=2
     getContacts - get page consisting of up to 10 contacts:
      - parameter: page - the number representing the page to get
-     - example: curl -X GET   http://localhost:8081/api/v1/search?page=2
+     - example: curl -X GET   http://localhost:8080/api/v1/search?page=2
 
 ### POST METHODS:
     add - create a new contact:
@@ -34,7 +34,7 @@ api/v1/<api_method>
             - address: a string representing the address of the contact
             - phone: required, must be between 7 and 20 characeters - a string representing the phone number of the contact
         example:
-         curl -X POST   http://localhost:8081/api/v1/add \ 
+         curl -X POST   http://localhost:8080/api/v1/add \ 
          -H 'Content-Type: application/json' \
          -d '{
                 "firstName": "John",
@@ -52,7 +52,7 @@ api/v1/<api_method>
             - address: a string representing the address of the contact
             - phone: if filled must be between 7 and 20 characeters - a string representing the phone number of the contact
         example: 
-        curl -X PUT   http://localhost:8081/api/v1/update?id=2   -H \
+        curl -X PUT   http://localhost:8080/api/v1/update?id=2   -H \
         'Content-Type: application/json' \
         -d 
         '{
@@ -64,7 +64,7 @@ api/v1/<api_method>
 ### DELETE METHODS:
     delete - delete existing contact:
         - parameter: ID - the number representing the contact id
-        - example: curl -X GET http://localhost:8081/api/v1/delete?id=2 
+        - example: curl -X GET http://localhost:8080/api/v1/delete?id=2 
   
 
 
@@ -92,3 +92,7 @@ FOR APIS:
  2. Get invalid page (such as -10)
  3. Get page that does not exist
  4. Adding more than the page size then getting both pages, afterwards delete one user and attempt to get the 2nd page.
+
+ # SCALE
+ I'm not sure what you meant by that requirement but the code I wrote does not support scale maybe it needs a rate limiter :D 
+
