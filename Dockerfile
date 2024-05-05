@@ -33,9 +33,9 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY --from=builder /app/.env .
 
-
-# Expose port 8080
-# EXPOSE 8080
+# Expose ports
+EXPOSE 3306
+EXPOSE 8080
 
 # Set the entry point for the container
 CMD [ "./main" ]
