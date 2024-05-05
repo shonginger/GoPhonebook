@@ -25,11 +25,8 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_USER: $DB_USER
-      MYSQL_PASSWORD: $DB_PASS
       MYSQL_ROOT_PASSWORD: $DB_PASS
       MYSQL_DATABASE: $DB_NAME
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
     volumes:
       - db_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
