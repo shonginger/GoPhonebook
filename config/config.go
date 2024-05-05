@@ -22,10 +22,10 @@ func initConfig() Config {
 	godotenv.Load()
 
 	return Config{
-		PublicHost: GetEnv("PUBLIC_HOST", "127.0.0.1"),
+		PublicHost: GetEnv("PUBLIC_HOST", "http://localhost"),
 		Port:       GetEnv("PORT", "8080"),
 		DBUser:     GetEnv("DB_USER", "root"),
-		DBPassword: GetEnv("DB_PASSWORD", "mypassword"),
+		DBPassword: GetEnv("DB_PASSWORD", "root"),
 		DBAddress:  fmt.Sprintf("%s:%s", GetEnv("DB_HOST", "127.0.0.1"), GetEnv("DB_PORT", "3306")),
 		DBName:     GetEnv("DB_NAME", "phonebook_db"),
 	}

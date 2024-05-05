@@ -1,9 +1,11 @@
 package main
 
 import (
+	"crypto/tls"
 	"database/sql"
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
 	mysqlCfg "github.com/go-sql-driver/mysql"
@@ -17,6 +19,11 @@ import (
 
 func main() {
 	fmt.Println("server start")
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	_, err := http.Get("https://golang.org/")
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	db, err := db.NewMySQLStorage(mysqlCfg.Config{
 		User:                 config.Envs.DBUser,
@@ -26,11 +33,14 @@ func main() {
 		Net:                  "tcp",
 		AllowNativePasswords: true,
 		ParseTime:            true,
+		TLS:                  &tls.Config{InsecureSkipVerify: true},
 	})
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	time.Sleep(5 * time.Second)
 
 	driver, err := mysql.WithInstance(db, &mysql.Config{})
 	if err != nil {
@@ -38,7 +48,7 @@ func main() {
 	}
 
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://cmd/migrate/migrations",
+		"file:///app/cmd/migrate/migrations",
 		"mysql",
 		driver,
 	)

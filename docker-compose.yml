@@ -16,6 +16,9 @@ services:
       - DB_NAME=$DB_NAME
     depends_on:
       - db
+    volumes:
+      - ./cmd/migrate/migrations:/app/cmd/migrate/migrations
+
 
   db:
     image: mysql:8.0
@@ -25,7 +28,6 @@ services:
       MYSQL_USER: $DB_USER
       MYSQL_PASSWORD: $DB_PASS
       MYSQL_ROOT_PASSWORD: $DB_PASS
-      MYSQL_ROOT_RANDOM_PASSWORD: "secret"
       MYSQL_DATABASE: $DB_NAME
       MYSQL_ALLOW_EMPTY_PASSWORD: true
     volumes:

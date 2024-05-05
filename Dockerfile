@@ -13,7 +13,8 @@ RUN go mod download
 
 # Copy source files from the project directory into the appropriate directories in the /app directory
 COPY . .
-COPY cmd/ .
+COPY cmd/migrate/migrations/* ./cmd/migrate/migrations/*
+COPY cmd/ ./cmd/ 
 COPY services/ ./services/
 COPY config/ ./config/
 COPY types/ ./types/
